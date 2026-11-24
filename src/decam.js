@@ -165,6 +165,7 @@
       frm.elements.endereco.value = d.logradouro || '';
       frm.elements.bairro.value = d.bairro || '';
       frm.elements.cidade.value = d.localidade || '';
+      frm.elements.uf.value = d.uf || '';
       cepMsg('Endereço preenchido.', 'ok');
       frm.elements.numero.focus();
     } catch (e) {
@@ -230,8 +231,69 @@
   });
   window.addEventListener('afterprint', () => { document.title = tituloOriginal; });
 
-  $('#btnPdf').addEventListener('click', () => {
-    if (!form.elements.razao.value.trim() && !confirm('Razão Social/Nome está vazio. Gerar o PDF assim mesmo?')) return;
+  // $('#btnPdf').addEventListener('click', () => {
+  //   if (!form.elements.razao.value.trim() && !confirm('Razão Social/Nome está vazio. Gerar o PDF assim mesmo?')) return;
+  //   window.print(); // no diálogo, escolha "Salvar como PDF"
+  // });
+
+  /* ---------- Declaração MEI (isenção do Corpo de Bombeiros) ---------- */
+  const val = n => ((form.elements[n] && form.elements[n].value) || '').trim();
+
+  function perguntaMei() {
+    return new Promise(resolve => {
+      const d = $('#dlgMei');
+      d.returnValue = '';
+      d.addEventListener('close', () => resolve(d.returnValue), { once: true });
+      d.showModal();
+    });
+  }
+
+  function paginaMei() {
+    const s = socios[0] || {};                 // dados do 1º sócio
+    const t = val('tipo');                     // inscrição / alteração / renovação da página 1
+    const cb = on => `<span class="cb ${on ? 'on' : ''}"></span>`;
+    const lb = x => `<b>${x}</b>`;
+    const v = x => `<span class="mv">${esc(x)}</span>`;
+    const endEmp = [val('tipoLog'), val('logradouro')].filter(Boolean).join(' ');
+    const compl = val('complemento') ? `${lb('COMPL.')} ${v(val('complemento'))}` : '';
+    const hoje = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    return `<section class="sheet mei" id="pgMei">
+      <div class="mei-box">
+        <img class="brasao" src="brasao-jahu-sp.png" alt="" onerror="this.style.visibility='hidden'">
+        <div class="mei-head"><b>PREFEITURA DA ESTÂNCIA TURÍSTICA DE JAHU</b>SECRETARIA DE ECONOMIA E FINANÇAS<br>DEPARTAMENTO DE CADASTRO MOBILIÁRIO<br><i><u>DECLARAÇÃO DE ATIVIDADE ISENTA DO AUTO DE VISTORIA DO CORPO DE BOMBEIROS</u></i></div>
+      </div>
+      <div class="mei-tipo">
+        <span>${cb(t === 'nova')} INSCRIÇÃO</span><span>${cb(t === 'alteracao')} ALTERAÇÃO</span><span>${cb(t === 'renovacao')} RENOVAÇÃO</span>
+      </div>
+      <p class="mei-corpo">
+        ${lb('EU,')} ${v(s.nome)} ${lb(', INSCRITO NO CPF:')} ${v(s.cpf)} ${lb('E NO RG:')} ${v(s.rg)}
+        ${lb('RESIDENTE AO ENDEREÇO,')} ${v(s.endereco)} ${lb('Nº')} ${v(s.numero)} ${lb('BAIRRO')} ${v(s.bairro)}
+        ${lb('CEP')} ${v(s.cep)} ${lb('MUNICIPIO')} ${v(s.cidade)} ${lb('ESTADO')} ${v(s.uf)}
+        ${lb('RESPONSAVEL LEGAL PELA EMPRESA,')} ${v(val('razao'))}
+        ${lb('INSCRITO NO CNPJ:')} ${v(val('doc'))} ${lb('FONE')} ${v(val('telefone'))}
+        ${lb('E-MAIL:')} ${v(val('email'))}
+        ${lb('ESTABELECIDA NO ENDEREÇO,')} ${v(endEmp)} ${lb('Nº')} ${v(val('numero'))} ${compl}
+        ${lb('BAIRRO')} ${v(val('bairro'))} ${lb('CEP')} ${v(val('cep'))} ${lb('MUNICIPIO')} ${v(val('municipio'))} ${lb('ESTADO')} ${v(val('uf'))}
+      </p>
+      <p class="mei-decl">DECLARO, PARA OS DEVIDOS FINS, QUE A EMPRESA ACIMA DESCRITA POSSUI LOTAÇÃO MÁXIMA NÃO SUPERIOR A 49 (QUARENTA E NOVE) PESSOAS E, PORTANTO, ESTÁ ISENTA DO ATESTADO DE VISTORIA DO CORPO DE BOMBEIROS, CONFORME O ARTIGO 1º, § 2º, INCISO II, DA LEI Nº 3.029, DE 05/12/1995.</p>
+      <p class="mei-data">JAHU, &nbsp;${esc(hoje)}</p>
+      <div class="mei-ass">${esc(s.nome)}</div>
+      <div class="mei-nota">* ASSINATURA DO REQUERENTE IDENTICA AO DOCUMENTO COM FOTO APRESENTADO</div>
+    </section>`;
+  }
+
+  const removerMei = () => { const p = $('#pgMei'); if (p) p.remove(); };
+  window.addEventListener('afterprint', removerMei);
+
+  $('#btnPdf').addEventListener('click', async () => {
+    if (!val('razao') && !confirm('Razão Social/Nome está vazio. Gerar o PDF assim mesmo?')) return;
+    const r = await perguntaMei();
+    if (r === '' || r === 'cancel') return;
+    removerMei();
+    if (r === 'sim') {
+      if (!socios.length) { alert('Cadastre ao menos um sócio: os dados do 1º sócio são usados na declaração MEI.'); return; }
+      form.insertAdjacentHTML('beforeend', paginaMei()); // vira a página 3
+    }
     window.print(); // no diálogo, escolha "Salvar como PDF"
   });
 

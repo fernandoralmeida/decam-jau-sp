@@ -11,12 +11,12 @@
 <body>
 
   <div class="toolbar no-print">
-    <img src="brasao-jahu-sp.png" alt="Brasão de Jahu - SP" height="32px">
+    <img src="brasao-jahu-sp-bd.png" alt="Brasão de Jahu - SP" height="32px">
     <strong>DECAM – Jahu/SP</strong>
     <span id="status" role="status"></span>
     <span class="grow"></span>
     <button type="button" id="btnLimpar" class="btn sec">Limpar</button>
-    <button type="button" id="btnPdf" class="btn">Gerar PDF</button>
+    <button type="button" id="btnPdf" class="btn">Imprimir</button>
   </div>
 
   <form id="decam" autocomplete="off">
@@ -223,9 +223,10 @@
         <label class="c4">CEP <input name="cep" data-mask="cep" maxlength="9" inputmode="numeric"><small
             id="cepMsg"></small></label>
         <label class="c8">Endereço <input name="endereco"></label>
-        <label class="c4">Nº <input name="numero"></label>
+        <label class="c2">Nº <input name="numero"></label>
         <label class="c4">Bairro <input name="bairro"></label>
         <label class="c4">Cidade <input name="cidade"></label>
+        <label class="c2">UF <input name="uf" maxlength="2"></label>
         <label class="c4">CPF <input name="cpf" data-mask="cpf" maxlength="14" inputmode="numeric"></label>
         <label class="c4">RG <input name="rg"></label>
         <!-- <label class="c4">Em <input name="em" data-mask="date" maxlength="10" inputmode="numeric"></label> -->
@@ -235,6 +236,19 @@
       <menu>
         <button type="button" id="btnCancel" class="btn sec">Cancelar</button>
         <button type="submit" class="btn">Salvar</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <dialog id="dlgMei" class="no-print">
+    <form method="dialog">
+      <h2>Declaração MEI</h2>
+      <p>A empresa é <b>MEI com estabelecimento</b>? Se sim, será incluída a página da <i>Declaração de Atividade Isenta
+          do Auto de Vistoria do Corpo de Bombeiros</i>, com os dados da empresa e do 1º sócio.</p>
+      <menu>
+        <button value="cancel" class="btn sec">Cancelar</button>
+        <button value="nao" class="btn sec">Não</button>
+        <button value="sim" class="btn">Sim</button>
       </menu>
     </form>
   </dialog>
