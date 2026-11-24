@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DECAM – Jahu/SP</title>
+  <link rel="stylesheet" href="decam.css">
+</head>
+
+<body>
+
+  <div class="toolbar no-print">
+    <img src="brasao-jahu-sp.png" alt="Brasão de Jahu - SP" height="32px">
+    <strong>DECAM – Jahu/SP</strong>
+    <span id="status" role="status"></span>
+    <span class="grow"></span>
+    <button type="button" id="btnLimpar" class="btn sec">Limpar</button>
+    <button type="button" id="btnPdf" class="btn">Gerar PDF</button>
+  </div>
+
+  <form id="decam" autocomplete="off">
+
+    <!-- ===================== PÁGINA 1 ===================== -->
+    <section class="sheet">
+      <div class="blk">
+        <div class="row">
+          <div class="f s2 img-container">
+            <img src="brasao-jahu-sp.png" alt="Brasão de Jahu - SP" height="72px">
+          </div>
+          <div class="f s10">
+            <div class="head">
+              <b>PREFEITURA DA ESTÂNCIA TURÍSTICA DE JAHU - SP</b>
+              SECRETARIA DE ECONOMIA E FINANÇAS<br>
+              DEPARTAMENTO DE TRIBUTAÇÃO
+            </div>
+            <h1>DECLARAÇÃO CADASTRAL MUNICIPAL – DECAM</h1>
+          </div>
+          <div class="f s3 line">
+            <label class="opt"><input type="radio" name="tipo" value="nova"><span class="cb"></span><b>INSCRIÇÃO
+                NOVA:</b></label>
+            (Abertura) &nbsp;Em: <input class="inl w24" name="dataAbertura" data-mask="date" maxlength="10">
+          </div>
+          <div class="f s6 line flex-center">
+            <label class="opt wline"><input type="radio" name="tipo" value="alteracao"><span
+                class="cb"></span><b>ALTERAÇÃO</b></label>
+            <span class="wline">&nbsp;Tipo de alteração:&nbsp;</span>
+            <label class="opt m1mm"><input type="checkbox" name="alt" value="razao"><span class="cb"></span>Razão
+              Social</label>
+            <label class="opt m1mm"><input type="checkbox" name="alt" value="atividade"><span
+                class="cb"></span>Atividade</label>
+            <label class="opt m1mm"><input type="checkbox" name="alt" value="endereco"><span
+                class="cb"></span>Endereço</label>
+            <label class="opt m1mm"><input type="checkbox" name="alt" value="socios"><span
+                class="cb"></span>Sócios</label>
+            <label class="opt m1mm"><input type="checkbox" name="alt" value="regime"><span class="cb"></span>Regime
+              Tributário</label>
+            <label class="opt m1mm"><input type="checkbox" name="alt" value="contador"><span
+                class="cb"></span>Contador</label>
+            <label class="opt m1mm"><input type="checkbox" name="alt" value="capital"><span
+                class="cb"></span>Capital</label>
+          </div>
+          <div class="f s3 line flex-start">
+            <label class="opt"><input type="radio" name="tipo" value="renovacao"><span
+                class="cb"></span><b>RENOVAÇÃO</b></label>
+          </div>
+
+          <div class="f s8"><label>Razão Social/Nome</label><input name="razao"></div>
+          <div class="f s4"><label>Inscr. Mun.</label><input name="inscmun"></div>
+
+          <div class="f s6"><label>Fantasia</label><input name="fantasia"></div>
+          <div class="f s3"><label>CNPJ/CPF</label><input name="doc" data-mask="cpfcnpj" inputmode="numeric"
+              maxlength="18"></div>
+          <div class="f s3"><label>I.E./R.G.</label><input name="ierg"></div>
+
+          <div class="f s3"><label>Tipo de Contribuinte</label>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="contrib" value="pf"><span class="cb"></span>Pessoa
+                física</label>
+              <label class="opt"><input type="radio" name="contrib" value="pj"><span class="cb"></span>Pessoa
+                jurídica</label>
+            </div>
+          </div>
+          <div class="f s2"><label>Nº de Funcionários</label><input name="nfunc" inputmode="numeric"></div>
+          <div class="f s2"><label>Nº de Profissionais</label><input name="nprof" inputmode="numeric"></div>
+          <div class="f s5"><label>Tipo/Ramo de Atividade</label>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="ramo" value="industria"><span
+                  class="cb"></span>Indústria</label>
+              <label class="opt"><input type="radio" name="ramo" value="comercio"><span
+                  class="cb"></span>Comércio</label>
+              <label class="opt"><input type="radio" name="ramo" value="servicos"><span class="cb"></span>Prestação
+                Serviços</label>
+              <label class="opt"><input type="radio" name="ramo" value="mista"><span class="cb"></span>Mista</label>
+            </div>
+          </div>
+
+          <div class="f s8"><label>Selecione o tipo de endereço (selecione apenas um tipo)</label>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="tpend" value="estabelecimento"><span
+                  class="cb"></span>Estabelecimento</label>
+              <label class="opt"><input type="radio" name="tpend" value="correspondencia"><span
+                  class="cb"></span>Endereço somente para Correspondências</label>
+            </div>
+          </div>
+          <div class="f s4"><label>Metragem</label>
+            <div class="sfx"><input name="metragem" inputmode="decimal"><span>M²</span></div>
+          </div>
+
+          <div class="bar s12">LOCALIZAÇÃO DA EMPRESA</div>
+
+          <div class="f s2"><label>Tipo (rua, avenida, trav. etc.)</label><input name="tipoLog"></div>
+          <div class="f s7"><label>Logradouro</label><input name="logradouro"></div>
+          <div class="f s3"><label>Número</label><input name="numero"></div>
+
+          <div class="f s6"><label>Complemento</label><input name="complemento"></div>
+          <div class="f s6"><label>Bairro</label><input name="bairro"></div>
+
+          <div class="f s6"><label>Município</label><input name="municipio"></div>
+          <div class="f s2"><label>UF</label><input name="uf" maxlength="2"></div>
+          <div class="f s4"><label>CEP</label><input name="cep" data-mask="cep" inputmode="numeric" maxlength="9"></div>
+
+          <div class="f s5"><label>E-mail</label><input name="email"></div>
+          <div class="f s5"><label>Telefone</label><input name="telefone"></div>
+          <div class="f s2"><label>Fax</label><input name="fax"></div>
+
+          <div class="bar s12">JUNTA COMERCIAL / CARTÓRIO</div>
+
+          <div class="f s3"><label>Registro Junta</label><input name="registro"></div>
+          <div class="f s2"><label>Emissão</label><input name="emissao" data-mask="date" maxlength="10"></div>
+          <div class="f s2"><label>Última Alteração</label><input name="ultAlt"></div>
+          <div class="f s2"><label>Data da Última</label><input name="dtUltAlt" data-mask="date" maxlength="10"></div>
+          <div class="f s3"><label>Capital Social</label><input name="capital"></div>
+
+          <div class="bar s12">DADOS DO CONTADOR</div>
+
+          <div class="f s3"><label>C.R.C.</label><input name="crc"></div>
+          <div class="f s5"><label>Nome do Contador</label><input name="contNome"></div>
+          <div class="f s2"><label>CPF</label><input name="contCpf" data-mask="cpf" maxlength="14"></div>
+          <div class="f s2"><label>RG</label><input name="contRg"></div>
+
+          <div class="f s12"><label>Nome/Escritório Contábil</label><input name="contEscr"></div>
+
+          <div class="f s6"><label>Endereço</label><input name="contEnd"></div>
+          <div class="f s4"><label>Cidade</label><input name="contCid"></div>
+          <div class="f s2"><label>CEP</label><input name="contCep" data-mask="cep" maxlength="9"></div>
+
+          <div class="f s3"><label>Telefone</label><input name="contTel"></div>
+          <div class="f s3"><label>Fax</label><input name="contFax"></div>
+          <div class="f s6"><label>E-mail</label><input name="contEmail"></div>
+
+          <div class="bar s12">ATIVIDADES ECONÔMICAS / OBSERVAÇÕES</div>
+          <div class="f s12 area"><textarea name="atividades" rows="8"></textarea></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PÁGINA 2 ===================== -->
+    <section class="sheet">
+      <div class="bar solo">DECLARAÇÃO DOS SÓCIOS - PREENCHIMENTO OBRIGATÓRIO DE TODOS OS SÓCIOS, MESMO SE NÃO HOUVER
+        ALTERAÇÕES.</div>
+
+      <div class="no-print">
+        <button type="button" id="btnAddSocio" class="btn">+ Adicionar sócio</button>
+        <small>Máximo de 6 sócios (espaço do formulário).</small>
+      </div>
+      <div id="socios"></div>
+
+      <div class="blk sig">
+        <div class="row">
+          <div class="bar s12">DADOS REFERENTES À PESSOA DO SIGNATÁRIO <span class="obs">Obs: Este campo destina-se à
+              pessoa que efetuar o ato do protocolo.</span></div>
+          <div class="f s12"><label>Nome</label><input name="sigNome"></div>
+          <div class="f s7"><label>Endereço</label><input name="sigEnd"></div>
+          <div class="f s2"><label>Nº</label><input name="sigNum"></div>
+          <div class="f s3"><label>Compl.</label><input name="sigCompl"></div>
+          <div class="f s4"><label>Bairro</label><input name="sigBairro"></div>
+          <div class="f s3"><label>Cidade</label><input name="sigCidade"></div>
+          <div class="f s2"><label>CEP</label><input name="sigCep" data-mask="cep" maxlength="9" inputmode="numeric">
+            <small id="cepMsgSig"></small></div>
+          <div class="f s3"><label>Tel.</label><input name="sigTel"></div>
+          <div class="f s3"><label>RG</label><input name="sigRg"></div>
+          <div class="f s4"><label>Órgão Exp.</label><input name="sigOrgao"></div>
+          <div class="f s5"><label>CPF</label><input name="sigCpf" data-mask="cpf" maxlength="14"></div>
+          <div class="f s12">
+            <div class="linha-ass"><span>Assinatura do Signatário</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="assin">
+        <div class="data-ass">Jahu - SP, <input class="inl w60" name="dataAss"></div>
+        <div class="linha-ass"><span>Assinatura do Contribuinte ou Responsável Legal</span></div>
+        <div class="resp">
+          CPF: <input class="inl w36" name="respCpf" data-mask="cpf" maxlength="14">
+          RG: <input class="inl w30" name="respRg">
+          Fone: <input class="inl w30" name="respFone">
+        </div>
+      </div>
+
+      <p class="importante"><b>Importante:</b> 1 - Todos os campos deverão ser preenchidos, exceto os campos inscrição
+        municipal, quando se tratar de abertura de empresa (inscrição) e Data de Abertura, quando se tratar de Alteração
+        de Atividade; 2 - Deverão ser obrigatoriamente comunicados pelo contribuinte, quaisquer atos que venham alterar
+        os dados constantes nesta declaração; 3 - Informações inexatas, sujeitarão o contribuinte às penalidades
+        previstas na legislação vigente.</p>
+    </section>
+
+  </form>
+
+  <!-- ===================== MODAL SÓCIO ===================== -->
+  <dialog id="dlg" class="no-print">
+    <form id="frmSocio" method="dialog">
+      <h2>Sócio</h2>
+      <div class="g">
+        <label class="c12">Situação
+          <select name="status">
+            <option value="0">Sem Alteração</option>
+            <option value="1">Com Alteração</option>
+            <option value="2">Inclusão</option>
+            <option value="3">Exclusão</option>
+          </select></label>
+        <label class="c12">Nome <input name="nome" required></label>
+        <label class="c4">CEP <input name="cep" data-mask="cep" maxlength="9" inputmode="numeric"><small
+            id="cepMsg"></small></label>
+        <label class="c8">Endereço <input name="endereco"></label>
+        <label class="c4">Nº <input name="numero"></label>
+        <label class="c4">Bairro <input name="bairro"></label>
+        <label class="c4">Cidade <input name="cidade"></label>
+        <label class="c4">CPF <input name="cpf" data-mask="cpf" maxlength="14" inputmode="numeric"></label>
+        <label class="c4">RG <input name="rg"></label>
+        <!-- <label class="c4">Em <input name="em" data-mask="date" maxlength="10" inputmode="numeric"></label> -->
+        <label class="c4">Telefone <input name="telefone"></label>
+        <label class="c4">E-mail <input name="email" type="email"></label>
+      </div>
+      <menu>
+        <button type="button" id="btnCancel" class="btn sec">Cancelar</button>
+        <button type="submit" class="btn">Salvar</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="decam.js"></script>
+</body>
+
+</html>
