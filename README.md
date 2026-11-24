@@ -14,6 +14,7 @@ Feito só com **HTML, CSS e JavaScript puros**, sem framework, sem build e sem b
 - **Gerar PDF:** usa a impressão do navegador com CSS para A4, sem margens e sem cabeçalho/rodapé. O nome do arquivo sugerido é `DECAM - <Razão Social>`.
 - **Declaração MEI (isenção do Corpo de Bombeiros):** ao clicar em **Gerar PDF**, a página pergunta se a empresa é *MEI com estabelecimento*. Se sim, inclui uma 3ª página com a *Declaração de Atividade Isenta do Auto de Vistoria do Corpo de Bombeiros*, preenchida com os dados da empresa (razão social, CNPJ, telefone, e-mail e endereço do estabelecimento) e do **1º sócio** (nome, CPF, RG e endereço residencial). A marcação de Inscrição/Alteração/Renovação segue a escolha da página 1, e a data é a do dia da impressão.
 - Máscaras para CPF, CNPJ, CEP e datas, e validação dos dígitos do CNPJ antes de consultar a API.
+- **Plano B para o CNPJ:** se a ReceitaWS não responder (limite do plano gratuito) ou não tiver o CNPJ em cache, abre um modal para colar o texto do *Comprovante de Inscrição e de Situação Cadastral* da [Receita Federal](https://solucoes.receita.fazenda.gov.br/Servicos/cnpjreva/cnpjreva_solicitacao.asp). O texto é separado automaticamente e preenche razão social, fantasia, endereço, contato e atividades, sem digitação manual. O botão **Prefiro preencher manual** fecha o modal. O CNPJ do texto precisa ser o mesmo do formulário, e o capital social não vem no comprovante, então continua manual.
 
 ## Estrutura
 
@@ -26,7 +27,8 @@ Feito só com **HTML, CSS e JavaScript puros**, sem framework, sem build e sem b
     ├── index.html                  # estrutura do formulário e do modal
     ├── decam.css                   # estilo de tela e de impressão (A4)
     ├── brasao.png                  # (opcional) brasão do cabeçalho da declaração MEI
-    └── decam.js                    # máscaras, consultas CNPJ/CEP, sócios, declaração MEI e PDF
+    ├── comprovante-cnpj.js         # plano B: lê o texto do comprovante da Receita e preenche o formulário
+    └── decam.js                    # máscaras, consultas CNPJ/CEP, sócios, declaração MEI e PDF    
 ```
 
 ## Como usar
@@ -62,6 +64,7 @@ python3 -m http.server 8080
 - **Número de sócios:** altere `MAX_SOCIOS` em `src/decam.js` (e confira se o layout da página 2 comporta).
 - **Declaração MEI:** o texto e os campos ficam na função `paginaMei()` em `src/decam.js`, e o estilo nas classes `.mei-*` em `src/decam.css`.
 - **Novo formulário da prefeitura:** se o modelo oficial mudar, use o PDF em `docs/` como referência e atualize os campos em `src/index.html`.
+- **Comprovante da Receita:** se a Receita mudar o nome de algum campo do comprovante, ajuste o objeto `ROTULOS` no início de `src/comprovante-cnpj.js`.
 
 ## Aviso
 

@@ -96,7 +96,8 @@
       else setStatus('Dados do CNPJ carregados.', 'ok');
     } catch (e) {
       ultimoCnpj = '';
-      setStatus(`Não foi possível consultar o CNPJ (${e.message}). Preencha manualmente.`, 'err');
+      setStatus(`Não foi possível consultar o CNPJ (${e.message}).`, 'err');
+      if (window.DecamComprovante) window.DecamComprovante.abrir(cnpj, e.message);
     }
   }
 
@@ -231,11 +232,6 @@
   });
   window.addEventListener('afterprint', () => { document.title = tituloOriginal; });
 
-  // $('#btnPdf').addEventListener('click', () => {
-  //   if (!form.elements.razao.value.trim() && !confirm('Razão Social/Nome está vazio. Gerar o PDF assim mesmo?')) return;
-  //   window.print(); // no diálogo, escolha "Salvar como PDF"
-  // });
-
   /* ---------- Declaração MEI (isenção do Corpo de Bombeiros) ---------- */
   const val = n => ((form.elements[n] && form.elements[n].value) || '').trim();
 
@@ -259,7 +255,7 @@
     const hoje = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
     return `<section class="sheet mei" id="pgMei">
       <div class="mei-box">
-        <img class="brasao" src="brasao-jahu-sp.png" alt="" onerror="this.style.visibility='hidden'">
+        <img class="brasao" src="brasao.png" alt="" onerror="this.style.visibility='hidden'">
         <div class="mei-head"><b>PREFEITURA DA ESTÂNCIA TURÍSTICA DE JAHU</b>SECRETARIA DE ECONOMIA E FINANÇAS<br>DEPARTAMENTO DE CADASTRO MOBILIÁRIO<br><i><u>DECLARAÇÃO DE ATIVIDADE ISENTA DO AUTO DE VISTORIA DO CORPO DE BOMBEIROS</u></i></div>
       </div>
       <div class="mei-tipo">

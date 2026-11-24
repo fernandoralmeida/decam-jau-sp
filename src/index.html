@@ -11,7 +11,7 @@
 <body>
 
   <div class="toolbar no-print">
-    <img src="brasao-jahu-sp-bd.png" alt="Brasão de Jahu - SP" height="32px">
+    <img src="brasao.png" alt="Brasão de Jahu - SP" height="32px">
     <strong>DECAM – Jahu/SP</strong>
     <span id="status" role="status"></span>
     <span class="grow"></span>
@@ -26,11 +26,11 @@
       <div class="blk">
         <div class="row">
           <div class="f s2 img-container">
-            <img src="brasao-jahu-sp.png" alt="Brasão de Jahu - SP" height="72px">
+            <img src="brasao.png" alt="Brasão de Jahu - SP" height="72px">
           </div>
           <div class="f s10">
             <div class="head">
-              <b>PREFEITURA DA ESTÂNCIA TURÍSTICA DE JAHU - SP</b>
+              <b>PREFEITURA DA ESTÂNCIA TURÍSTICA DE JAHU</b>
               SECRETARIA DE ECONOMIA E FINANÇAS<br>
               DEPARTAMENTO DE TRIBUTAÇÃO
             </div>
@@ -240,6 +240,7 @@
     </form>
   </dialog>
 
+  <!-- ===================== PERGUNTA MEI ===================== -->
   <dialog id="dlgMei" class="no-print">
     <form method="dialog">
       <h2>Declaração MEI</h2>
@@ -253,6 +254,24 @@
     </form>
   </dialog>
 
+  <!-- ===================== COLAR DADOS DO CNPJ (plano B) ===================== -->
+  <dialog id="dlgCnpj" class="no-print">
+    <form method="dialog">
+      <h2>Colar dados do CNPJ</h2>
+      <p id="cnpjMotivo" class="mini"></p>
+      <p>Abra a <a href="https://solucoes.receita.fazenda.gov.br/Servicos/cnpjreva/cnpjreva_solicitacao.asp"
+          target="_blank" rel="noopener">consulta oficial da Receita Federal</a>, copie todo o texto do <i>Comprovante de
+          Inscrição e de Situação Cadastral</i> e cole abaixo. Os campos são preenchidos automaticamente.</p>
+      <textarea id="txtCnpj" rows="10" placeholder="Cole aqui o texto copiado do comprovante..."></textarea>
+      <p id="msgCnpj"></p>
+      <menu>
+        <button type="button" id="btnCnpjManual" class="btn sec">Prefiro preencher manual</button>
+        <button type="button" id="btnCnpjPreencher" class="btn">Preencher</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="comprovante-cnpj.js"></script>
   <script src="decam.js"></script>
 </body>
 
